@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <!-- Include any additional CSS for specific pages -->
+    {{#if page_css}}
+        <link rel="stylesheet" href="/static/css/{{page_css}}.css">
+    {{/if}}
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>AGI Testbed</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/" {{#if (eq active_page "home")}}class="active"{{/if}}>Home</a></li>
+                <li><a href="/dashboard" {{#if (eq active_page "dashboard")}}class="active"{{/if}}>Dashboard</a></li>
+                <li class="dropdown">
+                    <a href="#" {{#if (eq active_page_section "components")}}class="active"{{/if}}>Components</a>
+                    <div class="dropdown-content">
+                        <a href="/time-scaling" {{#if (eq active_page "time-scaling")}}class="active"{{/if}}>Time Scaling</a>
+                        <a href="/memory-management" {{#if (eq active_page "memory-management")}}class="active"{{/if}}>Memory Management</a>
+                        <a href="/reasoning" {{#if (eq active_page "reasoning")}}class="active"{{/if}}>Reasoning</a>
+                        <a href="/operational-state" {{#if (eq active_page "operational-state")}}class="active"{{/if}}>Operational State</a>
+                    </div>
+                </li>
+                <li><a href="/testbeds" {{#if (eq active_page "testbeds")}}class="active"{{/if}}>Testbeds</a></li>
+                <li><a href="/docs" {{#if (eq active_page "docs")}}class="active"{{/if}}>Documentation</a></li>
+            </ul>
+        </nav>
+        <div class="system-status">
+            <span class="status-label">System:</span>
+            <span class="status-value status-{{system_status_class}}">{{system_status}}</span>
+        </div>
+    </header>
+    
+    <main>
+        {{> content}}
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 AGI Research Project</p>
+            <p>Version: {{version}}</p>
+        </div>
+    </footer>
+    
+    <script src="/static/js/main.js"></script>
+    <!-- Include any additional JS for specific pages -->
+    {{#if page_js}}
+        <script src="/static/js/{{page_js}}.js"></script>
+    {{/if}}
+</body>
+</html>

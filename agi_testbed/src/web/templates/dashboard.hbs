@@ -1,0 +1,244 @@
+{{#> layout active_page="dashboard" page_js="dashboard" page_css="dashboard" system_status_class=(system_status_class system_status)}}
+  {{#*inline "content"}}
+    <div class="dashboard-container">
+      <div class="dashboard-header">
+        <h1>System Dashboard</h1>
+        <div class="dashboard-controls">
+          <button id="start-system" class="btn primary">Start All Components</button>
+          <button id="stop-system" class="btn secondary">Stop All Components</button>
+          <button id="refresh-data" class="btn tertiary">Refresh Data</button>
+        </div>
+      </div>
+
+      <div class="status-overview">
+        <div class="status-card system">
+          <h3>System Status</h3>
+          <div class="status-value status-{{system_status_class}}">{{system_status}}</div>
+          <div class="status-details">
+            <p>Active Components: <span id="active-components">{{active_components}}</span></p>
+            <p>Last Updated: <span id="last-updated">{{format_date status.last_updated}}</span></p>
+          </div>
+          {{#if errors.length}}
+            <div class="error-list">
+              <h4>Errors:</h4>
+              <ul>
+                {{#each errors}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          {{/if}}
+          {{#if warnings.length}}
+            <div class="warning-list">
+              <h4>Warnings:</h4>
+              <ul>
+                {{#each warnings}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="metrics-header">
+        <h2>System Metrics</h2>
+        <div class="time-controls">
+          <label for="time-range">Time Range:</label>
+          <select id="time-range">
+            <option value="5m">Last 5 minutes</option>
+            <option value="15m">Last 15 minutes</option>
+            <option value="1h" selected>Last hour</option>
+            <option value="6h">Last 6 hours</option>
+            <option value="1d">Last 24 hours</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="metrics-container">
+        <div class="metrics-chart">
+          <h3>Resource Usage</h3>
+          <div id="resource-chart" class="chart"></div>
+        </div>
+        
+        <div class="metrics-chart">
+          <h3>Task Processing</h3>
+          <div id="task-chart" class="chart"></div>
+        </div>
+      </div>
+
+      <h2>Component Status</h2>
+      
+      <div class="component-grid">
+        <div class="component-card" id="time-scaling-component">
+          <div class="component-header">
+            <h3>Time Scaling</h3>
+            <span class="component-status status-unknown">Unknown</span>
+          </div>
+          <div class="component-metrics">
+            <div class="metric">
+              <span class="metric-name">Mode:</span>
+              <span class="metric-value" id="ts-mode">-</span>
+            </div>
+            <div class="metric">
+              <span class="metric-name">Tasks Processed:</span>
+              <span class="metric-value" id="ts-tasks">0</span>
+            </div>
+            <div class="metric">
+              <span class="metric-name">Avg. Processing Time:</span>
+              <span class="metric-value" id="ts-avg-time">0 ms</span>
+            </div>
+          </div>
+          <div class="component-footer">
+            <a href="/time-scaling" class="btn small">Details</a>
+          </div>
+        </div>
+
+        <div class="component-card" id="memory-component">
+          <div class="component-header">
+            <h3>Memory Management</h3>
+            <span class="component-status status-unknown">Unknown</span>
+          </div>
+          <div class="component-metrics">
+            <div class="metric">
+              <span class="metric-name">STM Allocation:</span>
+              <span class="metric-value" id="mem-stm-alloc">-</span>
+            </div>
+            <div class="metric">
+              <span class="metric-name">STM Utilization:</span>
+              <span class="metric-value" id="mem-stm-util">0%</span>
+            </div>
+            <div class="metric">
+              <span class="metric-name">LTM Items:</span>
+              <span class="metric-value" id="mem-ltm-items">0</span>
+            </div>
+          </div>
+          <div class="component-footer">
+            <a href="/memory-management" class="btn small">Details</a>
+          </div>
+        </div>
+
+        <div class="component-card" id="reasoning-component">
+          <div class="component-header">
+            <h3>Reasoning</h3>
+            <span class="component-status status-unknown">Unknown</span>
+          </div>
+          <div class="component-metrics">
+            <div class="metric">
+              <span class="metric-name">Knowledge Nodes:</span>
+              <span class="metric-value" id="reason-nodes">0</span>
+            </div>
+            <div class="metric">
+              <span class="metric-name">Inferences:</span>
+              <span class="metric-value" id="reason-inferences">0</span>
+            </div>
+            <div class="metric">
+              <span class="metric-name">Avg. Confidence:</span>
+              <span class="metric-value" id="reason-confidence">0%</span>
+            </div>
+          </div>
+          <div class="component-footer">
+            <a href="/reasoning" class="btn small">Details</a>
+          </div>
+        </div>
+
+        <div class="component-card" id="operational-component">
+          <div class="component-header">
+            <h3>Operational State</h3>
+            <span class="component-status status-unknown">Unknown</span>
+          </div>
+          <div class="component-metrics">
+            <div class="metric">
+              <span class="metric-name">Current Mode:</span>
+              <span class="metric-value" id="op-mode">-</span>
+            </div>
+            <div class="metric">
+              <span class="metric-name">Active Goals:</span>
+              <span class="metric-value" id="op-goals">0</span>
+            </div>
+            <div class="metric">
+              <span class="metric-name">Running Tasks:</span>
+              <span class="metric-value" id="op-tasks">0</span>
+            </div>
+          </div>
+          <div class="component-footer">
+            <a href="/operational-state" class="btn small">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="message-panel">
+        <h2>System Messages</h2>
+        <div class="message-controls">
+          <button id="clear-messages" class="btn small">Clear Messages</button>
+          <div class="message-filter">
+            <label for="message-level">Filter:</label>
+            <select id="message-level">
+              <option value="all">All Messages</option>
+              <option value="error">Errors Only</option>
+              <option value="warning">Warnings+</option>
+              <option value="info" selected>Info+</option>
+              <option value="debug">Debug+</option>
+            </select>
+          </div>
+        </div>
+        <div class="message-container">
+          <table id="message-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Level</th>
+                <th>Component</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tbody id="message-log">
+              <!-- Messages will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="message-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Send System Message</h3>
+        <form id="message-form">
+          <div class="form-group">
+            <label for="target-component">Target Component:</label>
+            <select id="target-component">
+              <option value="">All Components (Broadcast)</option>
+              <option value="time_scaling">Time Scaling</option>
+              <option value="memory_management">Memory Management</option>
+              <option value="reasoning">Reasoning</option>
+              <option value="operational_state">Operational State</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message-type">Message Type:</label>
+            <input type="text" id="message-type" required>
+          </div>
+          <div class="form-group">
+            <label for="message-payload">Payload (JSON):</label>
+            <textarea id="message-payload" rows="6"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="message-priority">Priority:</label>
+            <select id="message-priority">
+              <option value="1">1 (Lowest)</option>
+              <option value="3">3 (Low)</option>
+              <option value="5" selected>5 (Normal)</option>
+              <option value="7">7 (High)</option>
+              <option value="10">10 (Highest)</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Send Message</button>
+            <button type="button" class="btn secondary" id="cancel-message">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  {{/inline}}
+{{/layout}}

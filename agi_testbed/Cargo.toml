@@ -17,11 +17,13 @@ futures = "0.3" # Async utilities
 chrono = "0.4" # Time handling
 async-trait = "0.1" # Async trait support
 uuid = { version = "1.4", features = ["v4", "serde"] } # UUID generation
+lazy_static = "1.4" # Lazy static initialization
 
 # UI and visualization
 actix-files = "0.6" # Static file serving
-handlebars = "4.3" # Templating
+handlebars = "4.3" # Templating for web interface
 plotters = "0.3" # Plotting and data visualization
+rand = "0.8" # Random number generation for simulations
 
 # Memory management
 dashmap = "5.4" # Concurrent hashmap for memory implementations

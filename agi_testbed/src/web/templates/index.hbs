@@ -1,0 +1,133 @@
+{{#> layout active_page="home" page_js="index" system_status_class=(system_status_class system_status)}}
+  {{#*inline "content"}}
+    <div class="hero">
+      <h1>AGI Testbed</h1>
+      <p class="subtitle">Experimental framework for Artificial General Intelligence component testing</p>
+    </div>
+
+    <section class="intro">
+      <div class="container">
+        <h2>Welcome to the AGI Testbed</h2>
+        <p>
+          This system provides a comprehensive testing environment for key components of Artificial General Intelligence.
+          Through this interface, you can monitor, control, and run experiments on various AGI components.
+        </p>
+        <div class="status-overview">
+          <div class="status-card">
+            <h3>System Status</h3>
+            <p class="status status-{{system_status_class}}">{{system_status}}</p>
+            <p>{{active_components}} active components</p>
+          </div>
+          <div class="actions">
+            <a href="/dashboard" class="btn primary">System Dashboard</a>
+            <a href="/testbeds" class="btn secondary">Run Testbeds</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="components">
+      <div class="container">
+        <h2>Core Components</h2>
+        <div class="component-cards">
+          <div class="component-card">
+            <div class="card-header">
+              <h3>Variable Time-Scaling</h3>
+            </div>
+            <div class="card-body">
+              <p>Dynamically adjusts processing rates based on task complexity or urgency</p>
+              <ul>
+                <li>Real-time vs. extended analytical modes</li>
+                <li>Progressive, continuous output generation</li>
+                <li>Complexity-based time allocation</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="/time-scaling" class="btn">Manage Time Scaling</a>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="card-header">
+              <h3>Continuous Memory Management</h3>
+            </div>
+            <div class="card-body">
+              <p>Dynamically shifts capacity between short-term and long-term storage</p>
+              <ul>
+                <li>Real-time STM allocation for immediate tasks</li>
+                <li>LTM consolidation for longer-term knowledge</li>
+                <li>Dynamic memory transfer function</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="/memory-management" class="btn">Manage Memory</a>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="card-header">
+              <h3>Inference-Based Reasoning</h3>
+            </div>
+            <div class="card-body">
+              <p>Maintains structural knowledge representations and logical inference</p>
+              <ul>
+                <li>Combining knowledge fragments for new insights</li>
+                <li>Validating logical consistency of inferences</li>
+                <li>Knowledge graph navigation</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="/reasoning" class="btn">Manage Reasoning</a>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="card-header">
+              <h3>Persistent Operational State</h3>
+            </div>
+            <div class="card-body">
+              <p>Autonomous operation in multiple modes with continuous runtime</p>
+              <ul>
+                <li>Problem-solving, exploration, consolidation & planning modes</li>
+                <li>Resource balancing among concurrent tasks</li>
+                <li>Robust recovery from interruptions</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="/operational-state" class="btn">Manage Operational State</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testbeds">
+      <div class="container">
+        <h2>Available Testbeds</h2>
+        <p>Run comprehensive tests to evaluate AGI component capabilities</p>
+        <div class="testbed-list">
+          <div class="testbed-item">
+            <h3>Testbed 1: Complexity-Based Time Scaling</h3>
+            <p>Validate dynamic CPU/GPU time allocation across varying task complexity</p>
+            <a href="/testbeds#testbed1" class="btn small">Run</a>
+          </div>
+          <div class="testbed-item">
+            <h3>Testbed 2: Dynamic Memory Allocation</h3>
+            <p>Measure STM vs. LTM performance during high-load conditions</p>
+            <a href="/testbeds#testbed2" class="btn small">Run</a>
+          </div>
+          <div class="testbed-item">
+            <h3>Testbed 3: Structural Reasoning Validation</h3>
+            <p>Validate knowledge integration & inference correctness</p>
+            <a href="/testbeds#testbed3" class="btn small">Run</a>
+          </div>
+          <div class="testbed-item">
+            <h3>Testbed 4: Continuous Autonomous Operation</h3>
+            <p>Assess system's ability to run indefinitely with changing goals</p>
+            <a href="/testbeds#testbed4" class="btn small">Run</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  {{/inline}}
+{{/layout}}
